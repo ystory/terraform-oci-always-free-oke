@@ -1,4 +1,16 @@
+variable "always_run_bastion_tunnel" {
+  description = "A boolean variable to decide whether to always trigger the bastion_tunnel null_resource on each 'terraform apply'. Set to 'true' to always trigger, and 'false' to maintain the trigger state."
+  default     = true
+}
+
+locals {
+  trigger_value_bastion_tunnel = var.always_run_bastion_tunnel ? uuid() : ""
+}
+
 resource "null_resource" "bastion_tunnel" {
+  triggers = {
+    always_run = local.trigger_value_bastion_tunnel
+  }
 
   depends_on = [null_resource.kubeconfig]
 

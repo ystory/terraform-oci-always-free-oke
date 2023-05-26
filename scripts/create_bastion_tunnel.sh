@@ -68,7 +68,9 @@ oci_bastion_session_init() {
 oci_bastion_session_init
 
 # Connect an SSH tunnel
-kill $(lsof -t -i:6443)
+if lsof -t -i:6443; then
+  kill "$(lsof -t -i:6443)"
+fi
 nohup ssh -i "${private_key_file}" \
   -o HostKeyAlgorithms=+ssh-rsa \
   -o PubkeyAcceptedAlgorithms=+ssh-rsa \
