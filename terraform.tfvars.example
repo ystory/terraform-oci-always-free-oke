@@ -1,0 +1,8 @@
+ssh_private_key_path = <path to private key>
+ssh_public_key_path  = <path to public key>
+
+home_region  = <home region>
+region       = <region>
+tenancy_ocid = <tenancy ocid>
+
+label_prefix = <label prefix>
