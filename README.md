@@ -51,3 +51,20 @@ terraform init
 terraform plan
 terraform apply
 ```
+
+## Accessing Private OKE Kubernetes Clusters using OCI Bastion Service
+
+To access private OKE Kubernetes clusters using OCI Bastion Service, you can execute the `terraform apply` command with the `-target` and `-var` options as follows:
+
+```
+terraform apply -target=null_resource.bastion_tunnel -var="always_run_bastion_tunnel=true"
+```
+
+This command will ensure that the `null_resource.bastion_tunnel` is always triggered, allowing you to connect to the private OKE Kubernetes cluster using the OCI Bastion Service, or create a new SSH tunnel if needed.
+
+
+To verify that your connection is working correctly, you can execute the following `kubectl` command:
+
+```
+kubectl --kubeconfig ~/.kube/ociconfig cluster-info
+```
