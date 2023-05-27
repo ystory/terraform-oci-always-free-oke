@@ -1,0 +1,15 @@
+# Terraform state files
+*.tfstate
+*.tfstate.backup
+
+# Terraform variables file
+terraform.tfvars
+
+# Terraform dependency lock file
+.terraform.lock.hcl
+
+# IDE directories
+.idea/
+
+# Generated files
+*.iml
