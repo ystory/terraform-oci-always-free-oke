@@ -1,8 +1,29 @@
-ssh_private_key_path = <path to private key>
-ssh_public_key_path  = <path to public key>
+# Identity and access parameters
+user_id = ""
+api_fingerprint = ""
+api_private_key_path = ""
+# api_private_key      = <<EOT
+#-----BEGIN RSA PRIVATE KEY-----
+#content+of+api+key
+#-----END RSA PRIVATE KEY-----
+#EOT
+tenancy_id = ""
+region = ""
+home_region = ""
 
-home_region  = <home region>
-region       = <region>
-tenancy_ocid = <tenancy ocid>
+# SSH keys
+# ssh_private_key    = <<EOT
+#-----BEGIN RSA PRIVATE KEY-----
+#content+of+api+key
+#-----END RSA PRIVATE KEY-----
+#EOT
+ssh_private_key_path = ""
+# ssh_public_key    = ""
+ssh_public_key_path  = ""
 
-label_prefix = <label prefix>
+# oke cluster options
+kubernetes_version = ""
+node_pool_size = 2
+
+# general oci parameters
+label_prefix = "dev"
