@@ -2,11 +2,7 @@ module "oke" {
   source  = "oracle-terraform-modules/oke/oci"
   version = "4.5.9"
 
-  user_id                  = var.user_id
-  api_fingerprint          = var.api_fingerprint
-  api_private_key          = local.api_private_key
-  api_private_key_password = var.api_private_key_password
-  tenancy_id               = var.tenancy_id
+  tenancy_id = var.tenancy_id
 
   region      = var.region
   home_region = var.home_region
@@ -33,11 +29,11 @@ module "oke" {
 
   # oke cluster options
   cluster_name                = var.name
-  control_plane_allowed_cidrs = ["0.0.0.0/0"]
+  control_plane_allowed_cidrs = var.control_plane_allowed_cidrs
   kubernetes_version          = var.kubernetes_version
   dashboard_enabled           = true
   cluster_type                = "basic"
-  control_plane_type          = "private"
+  control_plane_type          = var.control_plane_type
 
   # node pools
   node_pools = {
@@ -64,6 +60,6 @@ module "oke" {
   public_lb_allowed_ports = [80, 443]
 
   providers = {
-    oci.home = oci
+    oci.home = oci.home
   }
 }
