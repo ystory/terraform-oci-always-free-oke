@@ -16,8 +16,6 @@ module "free-k8s" {
 
   node_pool_size = 2
 
-  control_plane_allowed_cidrs = ["0.0.0.0/0"]
-
   ssh_private_key_path = "~/.ssh/id_rsa"
   ssh_public_key_path  = "~/.ssh/id_rsa.pub"
 
