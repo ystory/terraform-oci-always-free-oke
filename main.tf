@@ -8,9 +8,9 @@ module "oke" {
   home_region = var.home_region
 
   # ssh keys
-  ssh_private_key      = var.ssh_private_key
+  ssh_private_key      = var.create_ssh_key_pair ? chomp(local_file.ssh_private_key[0].content) : var.ssh_private_key
   ssh_private_key_path = var.ssh_private_key_path
-  ssh_public_key       = var.ssh_public_key
+  ssh_public_key       = var.create_ssh_key_pair ? chomp(local_file.ssh_public_key[0].content) : var.ssh_public_key
   ssh_public_key_path  = var.ssh_public_key_path
 
   # general oci parameters
