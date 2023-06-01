@@ -1,3 +1,9 @@
+module "compartment" {
+  source = "./modules/compartment"
+
+  name = var.name
+}
+
 module "oke" {
   source  = "oracle-terraform-modules/oke/oci"
   version = "4.5.9"
@@ -14,15 +20,11 @@ module "oke" {
   ssh_public_key_path  = var.ssh_public_key_path
 
   # general oci parameters
-  compartment_id = oci_identity_compartment._.id
+  compartment_id = module.compartment.compartment_id
   label_prefix   = var.label_prefix
 
   # bastion host
   create_bastion_host = false
-
-  # bastion service
-  create_bastion_service        = true
-  bastion_service_target_subnet = "control-plane"
 
   # operator host
   create_operator = false
@@ -62,4 +64,32 @@ module "oke" {
   providers = {
     oci.home = oci.home
   }
+}
+
+module "bastion_service_control_plane" {
+  source = "./modules/bastion-service"
+
+  # general oci parameters
+  compartment_id = module.compartment.compartment_id
+  label_prefix   = var.label_prefix
+
+  # bastion service parameters
+  bastion_service_access        = var.bastion_service_access
+  bastion_service_name          = "${var.name}-cp"
+  bastion_service_target_subnet = module.oke.subnet_ids["cp"]
+  vcn_id                        = module.oke.vcn_id
+}
+
+module "bastion_service_workers" {
+  source = "./modules/bastion-service"
+
+  # general oci parameters
+  compartment_id = module.compartment.compartment_id
+  label_prefix   = var.label_prefix
+
+  # bastion service parameters
+  bastion_service_access        = var.bastion_service_access
+  bastion_service_name          = "${var.name}-workers"
+  bastion_service_target_subnet = module.oke.subnet_ids["workers"]
+  vcn_id                        = module.oke.vcn_id
 }
