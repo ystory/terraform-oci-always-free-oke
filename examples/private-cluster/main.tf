@@ -1,6 +1,6 @@
-module "free-k8s" {
-  source  = "ystory/always-free-oke/oci"
-  version = "v0.0.5"
+module "free_k8s" {
+  source  = "../../"
+#  version = "0.0.5"
 
   tenancy_id  = var.tenancy_id
   home_region = var.home_region

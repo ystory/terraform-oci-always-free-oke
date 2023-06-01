@@ -3,10 +3,10 @@ output "cluster_endpoints" {
   value       = module.oke.cluster_endpoints
 }
 
-output "autoscaling_nodepools" {
-  value = module.oke.autoscaling_nodepools
-}
-
-output "bastion_service_instance_id" {
-  value = module.oke.bastion_service_instance_id
+output "bastion_ids" {
+  description = "Map of Bastion Service IDs (cp, workers)"
+  value       = {
+    "cp"      = module.bastion_service_control_plane.bastion_id
+    "workers" = module.bastion_service_workers.bastion_id
+  }
 }

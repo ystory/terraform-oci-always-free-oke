@@ -1,6 +1,7 @@
 variable "name" {
-  type    = string
-  default = "free-k8s"
+  default     = "free-k8s"
+  description = "The name to be used for the OKE cluster and compartment during creation."
+  type        = string
 }
 
 # OCI Provider parameters
@@ -21,7 +22,13 @@ variable "tenancy_id" {
   type        = string
 }
 
-# ssh keys
+variable "label_prefix" {
+  default     = "none"
+  description = "A string that will be prepended to all resources."
+  type        = string
+}
+
+# SSH keys
 variable "create_ssh_key_pair" {
   default     = false
   description = "Whether to create an SSH key pair. If set to true, a new SSH key pair is created."
@@ -53,6 +60,7 @@ variable "ssh_public_key_path" {
   type        = string
 }
 
+# Kubernetes cluster
 variable "kubernetes_version" {
   default     = "v1.24.1"
   description = "The version of kubernetes to use when provisioning OKE or to upgrade an existing OKE cluster to."
@@ -85,8 +93,9 @@ variable "node_pool_size" {
   }
 }
 
-variable "label_prefix" {
-  default     = "none"
-  description = "A string that will be prepended to all resources."
-  type        = string
+# Bastion service
+variable "bastion_service_access" {
+  default     = ["0.0.0.0/0"]
+  description = "A list of CIDR blocks to which ssh access to the bastion service must be restricted."
+  type        = list(string)
 }

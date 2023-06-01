@@ -6,7 +6,7 @@ tier, enabling users to leverage Kubernetes without incurring additional costs.
 ## Examples
 
 ```hcl
-module "free-k8s" {
+module "free_k8s" {
   source = "ystory/always-free-oke/oci"
   #  version = "x.x.x"
 
