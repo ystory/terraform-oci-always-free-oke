@@ -70,4 +70,5 @@ nohup ssh -i "${private_key_file}" \
   -o PubkeyAcceptedAlgorithms=+ssh-rsa \
   -N -L 6443:"${cluster_ip}:${cluster_port}" \
   -p 22 \
+  -o StrictHostKeyChecking=no \
   "$session_id"@host.bastion."${region}".oci.oraclecloud.com >/dev/null 2>&1 &
