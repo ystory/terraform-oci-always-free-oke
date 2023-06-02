@@ -7,3 +7,8 @@ output "bastion_ids" {
   description = "Map of Bastion Service IDs (cp, workers)"
   value       = module.free_k8s.bastion_ids
 }
+
+output "nodepool_ids" {
+  description = "Map of Nodepool names and IDs"
+  value       = module.free_k8s.nodepool_ids
+}

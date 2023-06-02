@@ -10,3 +10,8 @@ output "bastion_ids" {
     "workers" = module.bastion_service_workers.bastion_id
   }
 }
+
+output "nodepool_ids" {
+  description = "Map of Nodepool names and IDs"
+  value       = module.oke.nodepool_ids
+}
