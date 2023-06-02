@@ -25,8 +25,8 @@ resource "local_file" "bastion_tunnel" {
   content = templatefile("${path.module}/scripts/create_bastion_tunnel_template.sh",
     {
       bastion_id       = var.control_plane_bastion_service_id
-      public_key_file  = var.ssh_public_key_filename
-      private_key_file = var.ssh_private_key_filename
+      public_key_file  = local.ssh_authorized_keys
+      private_key_file = local.ssh_private_key
       cluster_ip       = local.private_endpoint_ip
       cluster_port     = local.private_endpoint_port
       region           = var.region
