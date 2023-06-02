@@ -9,5 +9,5 @@ oci ce cluster create-kubeconfig \
   --overwrite \
   --kube-endpoint PRIVATE_ENDPOINT
 
-# Change the cluster IP to 127.0.0.1
-sed -i '' "s/${cluster_ip}/127.0.0.1/g" ~/.kube/ociconfig
+# The command below updates the Kubernetes config to use a bastion tunnel for accessing the cluster's private IP.
+perl -i -pe's/${cluster_ip}/127.0.0.1/g' ~/.kube/ociconfig
