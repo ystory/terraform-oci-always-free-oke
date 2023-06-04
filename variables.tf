@@ -29,12 +29,6 @@ variable "label_prefix" {
 }
 
 # SSH keys
-variable "create_ssh_key_pair" {
-  default     = false
-  description = "Whether to create an SSH key pair. If set to true, a new SSH key pair is created."
-  type        = bool
-}
-
 variable "ssh_private_key" {
   default     = ""
   description = "The contents of the private ssh key file, optionally base64-encoded."

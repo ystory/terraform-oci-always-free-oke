@@ -12,6 +12,7 @@ region = ""
 home_region = ""
 
 # SSH keys
+create_ssh_key_pair = ""
 # ssh_private_key    = <<EOT
 #-----BEGIN RSA PRIVATE KEY-----
 #content+of+api+key

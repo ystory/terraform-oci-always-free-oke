@@ -1,3 +1,8 @@
+output "cluster_id" {
+  description = "ID of the Kubernetes cluster"
+  value       = module.oke.cluster_id
+}
+
 output "cluster_endpoints" {
   description = "Endpoints for the Kubernetes cluster"
   value       = module.oke.cluster_endpoints

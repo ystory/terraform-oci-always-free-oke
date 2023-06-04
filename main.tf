@@ -4,12 +4,6 @@ module "compartment" {
   name = var.name
 }
 
-module "tls" {
-  source = "./modules/tls"
-
-  count = var.create_ssh_key_pair == true ? 1 : 0
-}
-
 module "oke" {
   source  = "oracle-terraform-modules/oke/oci"
   version = "4.5.9"
@@ -20,9 +14,9 @@ module "oke" {
   home_region = var.home_region
 
   # ssh keys
-  ssh_private_key      = var.create_ssh_key_pair ? chomp(module.tls[0].ssh_private_key) : var.ssh_private_key
+  ssh_private_key      = var.ssh_private_key
   ssh_private_key_path = var.ssh_private_key_path
-  ssh_public_key       = var.create_ssh_key_pair ? chomp(module.tls[0].ssh_public_key) : var.ssh_public_key
+  ssh_public_key       = var.ssh_public_key
   ssh_public_key_path  = var.ssh_public_key_path
 
   # general oci parameters
@@ -98,22 +92,4 @@ module "bastion_service_workers" {
   bastion_service_name          = "${var.name}-workers"
   bastion_service_target_subnet = module.oke.subnet_ids["workers"]
   vcn_id                        = module.oke.vcn_id
-}
-
-module "kubernetes" {
-  source = "./modules/kubernetes"
-
-  control_plane_bastion_service_id = module.bastion_service_control_plane.bastion_id
-  workers_bastion_service_id       = module.bastion_service_workers.bastion_id
-
-  # ssh keys
-  ssh_private_key      = var.create_ssh_key_pair ? chomp(module.tls[0].ssh_private_key) : var.ssh_private_key
-  ssh_private_key_path = var.ssh_private_key_path
-  ssh_public_key       = var.create_ssh_key_pair ? chomp(module.tls[0].ssh_public_key) : var.ssh_public_key
-  ssh_public_key_path  = var.ssh_public_key_path
-
-  cluster_id        = module.oke.cluster_id
-  cluster_endpoints = module.oke.cluster_endpoints
-
-  region = var.region
 }
