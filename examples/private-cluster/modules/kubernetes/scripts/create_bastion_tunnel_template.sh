@@ -3,18 +3,18 @@
 # Create a port-forwarding session on the bastion
 oci_bastion_session_create() {
   oci bastion session create-port-forwarding \
-    --bastion-id "${bastion_id}" \
+    --bastion-id ${bastion_id} \
     --display-name oke-tunnel \
-    --ssh-public-key-file "${public_key_file}" \
+    --ssh-public-key-file ${public_key_file} \
     --key-type PUB \
-    --target-private-ip "${cluster_ip}" \
-    --target-port "${cluster_port}" \
+    --target-private-ip ${cluster_ip} \
+    --target-port ${cluster_port} \
     --session-ttl 10800
 }
 
 oci_bastion_session_list() {
   oci bastion session list \
-    --bastion-id "${bastion_id}" \
+    --bastion-id ${bastion_id} \
     --display-name oke-tunnel \
     --limit 1 \
     --session-lifecycle-state ACTIVE \
@@ -25,7 +25,7 @@ oci_bastion_session_list() {
 
 oci_bastion_session_state() {
   session_id="$1"
-  oci bastion session get --session-id "$session_id" |
+  oci bastion session get --session-id $session_id |
     jq -r '.data."lifecycle-state"'
 }
 
@@ -56,7 +56,7 @@ oci_bastion_session_init() {
     sleep 10
   fi
 
-  echo >&2 "$state"
+  echo >&2 "$state $session_id"
 }
 
 oci_bastion_session_init
@@ -65,10 +65,10 @@ oci_bastion_session_init
 if lsof -t -i:6443; then
   kill "$(lsof -t -i:6443)"
 fi
-nohup ssh -i "${private_key_file}" \
+nohup ssh -i ${private_key_file} \
   -o HostKeyAlgorithms=+ssh-rsa \
   -o PubkeyAcceptedAlgorithms=+ssh-rsa \
-  -N -L 6443:"${cluster_ip}:${cluster_port}" \
+  -N -L 6443:${cluster_ip}:${cluster_port} \
   -p 22 \
   -o StrictHostKeyChecking=no \
-  "$session_id"@host.bastion."${region}".oci.oraclecloud.com >/dev/null 2>&1 &
+  "$session_id"@host.bastion.${region}.oci.oraclecloud.com >/dev/null 2>&1 &

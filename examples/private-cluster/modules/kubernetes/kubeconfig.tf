@@ -1,11 +1,13 @@
 resource "null_resource" "kubeconfig" {
   depends_on = [local_file.create_kubeconfig]
 
-  provisioner "local-exec" {
-    command = "${path.root}/create_kubeconfig.sh"
+  triggers = {
+    always_run = uuid()
   }
 
-  count = local.post_provisioning_ops_enabled ? 1 : 0
+  provisioner "local-exec" {
+    command = local_file.create_kubeconfig.filename
+  }
 }
 
 resource "local_file" "create_kubeconfig" {
@@ -17,6 +19,4 @@ resource "local_file" "create_kubeconfig" {
     }
   )
   filename = "${path.root}/create_kubeconfig.sh"
-
-  count = local.post_provisioning_ops_enabled ? 1 : 0
 }
