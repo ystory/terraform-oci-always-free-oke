@@ -87,6 +87,12 @@ variable "node_pool_size" {
   }
 }
 
+variable "node_pool_os_version" {
+  default     = "7.9"
+  description = "The version of operating system to use for the worker nodes."
+  type        = string
+}
+
 # Bastion service
 variable "bastion_service_access" {
   default     = ["0.0.0.0/0"]
