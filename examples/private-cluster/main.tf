@@ -13,6 +13,7 @@ module "free_k8s" {
   region      = var.region
 
   node_pool_size = 2
+  node_pool_os_version = "8.7"
 
   kubernetes_version          = "v1.26.2"
   control_plane_type          = "private"

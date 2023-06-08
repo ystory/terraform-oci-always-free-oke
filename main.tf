@@ -55,6 +55,7 @@ module "oke" {
       }
     }
   }
+  node_pool_os_version = var.node_pool_os_version
 
   # oke load balancers
   load_balancers          = "both"
