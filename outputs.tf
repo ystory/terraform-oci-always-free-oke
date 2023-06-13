@@ -20,3 +20,8 @@ output "nodepool_ids" {
   description = "Map of Nodepool names and IDs"
   value       = module.oke.nodepool_ids
 }
+
+output "compartment_id" {
+  description = "The OCID of the compartment that is using Oracle Cloud's Always Free services"
+  value       = module.compartment.compartment_id
+}
