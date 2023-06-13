@@ -25,3 +25,8 @@ output "compartment_id" {
   description = "The OCID of the compartment that is using Oracle Cloud's Always Free services"
   value       = module.compartment.compartment_id
 }
+
+output "vcn_id" {
+  description = "The OCID of the Virtual Cloud Network (VCN) created within the compartment using Oracle Cloud's Always Free services."
+  value       = module.oke.vcn_id
+}
