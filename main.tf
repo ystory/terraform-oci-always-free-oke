@@ -44,7 +44,7 @@ module "oke" {
       ocpus            = local.max_cores_free_tier / var.node_pool_size,
       memory           = local.max_memory_free_tier_gb / var.node_pool_size,
       node_pool_size   = var.node_pool_size,
-      boot_volume_size = 50,
+      boot_volume_size = 100,
       label            = {
         pool         = "arm-ampere-a1-free-tier",
         architecture = "arm",
